@@ -1,0 +1,24 @@
+﻿@model QuizApp.Models.QuizViewModel
+
+<h2>BÀI TRẮC NGHIỆM</h2>
+
+<form asp-action="Submit" method="post">
+    @foreach (var q in Model.Questions)
+    {
+        <div class="quiz-box" style="margin-bottom:20px">
+            <b>Câu @q.Id: @q.QuestionText</b><br />
+
+            @for (int i = 0; i < q.Options.Count; i++)
+            {
+                <label>
+                    <input type="radio"
+                           name="Answers[@q.Id]"
+                           value="@i" />
+                    @q.Options[i]
+                </label>
+            }
+        </div>
+    }
+
+    <button type="submit">NỘP BÀI</button>
+</form>

@@ -1,0 +1,34 @@
+﻿@model QuizApp.Models.QuizViewModel
+
+<h2>KẾT QUẢ</h2>
+<h3>Điểm: @Model.Score / @Model.Questions.Count</h3>
+
+@foreach (var q in Model.Questions)
+{
+    var userAnswer = Model.Answers.ContainsKey(q.Id)
+        ? Model.Answers[q.Id]
+        : -1;
+
+    <div class="quiz-box" style="margin-bottom:20px">
+        <b>Câu @q.Id: @q.QuestionText</b><br />
+
+        @for (int i = 0; i < q.Options.Count; i++)
+        {
+            if (i == q.CorrectIndex)
+            {
+                <span class="correct">✔ @q.Options[i]</span>
+            }
+            else if (i == userAnswer)
+            {
+                <span class="wrong">✘ @q.Options[i]</span>
+            }
+            else
+            {
+                <span>@q.Options[i]</span>
+            }
+            <br />
+        }
+    </div>
+}
+
+<a asp-action="Index" class="btn">LÀM LẠI BÀI</a>
